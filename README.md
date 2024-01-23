@@ -9,3 +9,16 @@
     ```
     npm create vite@latest . -- --template react-ts
     ```
+
+## Slack integration
+1. Create workspace in slack application
+2. Instal Github application in slack workspace
+3. Add slack application to github user to check all user repositories, or you can choose specific repo.
+4. Create channel in slack for your review, and subscribe to github repos pull request, using command
+    ```
+    /github subscribe owner/repo
+    ```
+5. Remove unnecessary subscribtions
+    ```
+    /github unsubscribe owner/repo issues, commits, releases, deployments
+    ```
