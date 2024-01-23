@@ -11,6 +11,8 @@
     ```
 
 ## Slack integration
+
+### Method 1 - integration with github application.
 1. Create workspace in slack application
 2. Instal Github application in slack workspace
 3. Add slack application to github user to check all user repositories, or you can choose specific repo.
@@ -18,7 +20,7 @@
     ```
     /github subscribe owner/repo
     ```
-5. Remove unnecessary subscribtions
+5. Remove unnecessary subscriptions
     ```
     /github unsubscribe owner/repo issues, commits, releases, deployments
     ```
