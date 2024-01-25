@@ -1,0 +1,24 @@
+name: 'Pull request to develop'
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  development-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21'
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
