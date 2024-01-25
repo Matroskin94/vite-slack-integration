@@ -1,4 +1,4 @@
-name: 'Pull request to develop'
+name: "Pull request to develop"
 
 on:
   pull_request:
@@ -11,14 +11,24 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
-      
+
       - name: Install node
         uses: actions/setup-node@v2
         with:
-          node-version: '21'
-      
+          node-version: "21"
+
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         run: npm run build
+
+      - name: Alert on build
+        uses: kceb/pull-request-url-action@v1
+        id: pr-url
+        env:
+          SLACK_WEBHOOK_SECRET: T06ENM176KH/B06G6ACEK7A/TMdFaSiSu8Cj1aKc6Oe5Bx4A
+          SLACK_MESSAGE: ":orc_worker: Actor: ${{ github.actor }}, API url: ${{ github.api_url }}, PR url: ${{ steps.pr-url.outputs.url }}"
+          SLACK_TEST_MESSAGE: "Github object view ${{ github }}"
+        run: ./.github/workflows/develop-slack-notify.sh
+        shell: bash
