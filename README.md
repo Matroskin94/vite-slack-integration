@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# Vite boilerplate example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project features
+1. [Vite](https://vitejs.dev/guide/) start configurations for the project
+2. [Slack](https://slack.github.com/) integration
 
-Currently, two official plugins are available:
+## Vite instalation
+1. Run the next command in folder, where you want to create a vite template. Where `.` sets directory for template, with `.`, it will create template in current directory. If you need to create a folder with template you can set folder name instead of `.`.
+    ```
+    npm create vite@latest . -- --template react-ts
+    ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Slack integration
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Method 1 - integration with github application.
+1. Create workspace in slack application
+2. Instal Github application in slack workspace
+3. Add slack application to github user to check all user repositories, or you can choose specific repo.
+4. Create channel in slack for your review, and subscribe to github repos pull request, using command
+    ```
+    /github subscribe owner/repo
+    ```
+5. Remove unnecessary subscriptions
+    ```
+    /github unsubscribe owner/repo issues, commits, releases, deployments
+    ```
