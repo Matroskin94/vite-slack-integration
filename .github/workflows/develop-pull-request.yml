@@ -3,7 +3,6 @@ name: "Pull request to develop"
 on:
   pull_request:
     branches: [develop]
-    types: [opened]
 
 jobs:
   development-build:
@@ -24,19 +23,16 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Get PR number
-        uses: jwalton/gh-find-current-pr@v1
-        id: prNumber
-
       - name: Get full PR link
         id: vars
         run: |
-          PR_URL="${{ github.server_url }}"/"${{ github.repository }}"/pull/"${{ steps.prNumber.outputs.number }}"
-          PR_NUMBER="${{ steps.prNumber.outputs.number }}"
+          PR_URL="${{ github.event.pull_request._links.html.href }}"
+          PR_NUMBER="${{ github.event.number }}"
           echo PR_NUMBER="$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "PR_URL=$PR_URL" >> "$GITHUB_OUTPUT"
 
       - name: Alert on build
+        if: github.event.action == 'opened'
         env:
           SLACK_WEBHOOK_SECRET: ${{ secrets.SLACK_WEBHOOK_SECRET }}
           SLACK_MESSAGE: ":orc_worker: New pull request is ready to review <${{ steps.vars.outputs.PR_URL }}| *PR#${{ steps.vars.outputs.PR_NUMBER }}*>"
