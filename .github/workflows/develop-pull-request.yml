@@ -3,7 +3,7 @@ name: "Pull request to develop"
 on:
   pull_request:
     branches: [develop]
-    types: [opened]
+    #types: [opened]
 
 jobs:
   development-build:
@@ -37,8 +37,9 @@ jobs:
           echo "PR_URL=$PR_URL" >> "$GITHUB_OUTPUT"
 
       - name: Alert on build
+        #if: ${{ github.event.pull_request.opened ===}}
         env:
           SLACK_WEBHOOK_SECRET: ${{ secrets.SLACK_WEBHOOK_SECRET }}
-          SLACK_MESSAGE: ":orc_worker: New pull request is ready to review <${{ steps.vars.outputs.PR_URL }}| *PR#${{ steps.vars.outputs.PR_NUMBER }}*>"
+          SLACK_MESSAGE: ":orc_worker: New pull request is ready to review <${{ steps.vars.outputs.PR_URL }}| *PR#${{ steps.vars.outputs.PR_NUMBER }}*>, Is opened ${{ github.event_name  }}"
         run: ./.github/workflows/develop-slack-notify.sh
         shell: bash
