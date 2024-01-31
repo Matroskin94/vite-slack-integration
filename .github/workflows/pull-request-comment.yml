@@ -1,0 +1,28 @@
+name: "Comment to pull request"
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  review-completed:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Review notify
+        uses: actions/checkout@v4
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "21"
+      - name: Install dependencies
+        run: npm install
+      - name: Send comment to thread
+        env:
+          SLACK_WEBHOOK_SECRET: ${{ secrets.SLACK_API_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { sendComment } = await import('${{ github.workspace }}/.github/actions/tread-comment.js')
+            await sendComment('${{ secrets.SLACK_API_TOKEN }}')
+        # run: node ./.github/actions/tread-comment.js
